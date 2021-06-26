@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <locale.h>
+#include <ctype.h>
+#include <string.h>
+#include <conio.h>
 #include <stdbool.h>
 
 #include "Market_Head.h"
@@ -17,7 +21,6 @@ void inicializar()
 
 List* Create_List()
 {
-
     List *list = (List*) malloc (2 * sizeof(List));
 
     for(int ndx = 0; ndx < 2; ndx++)
@@ -25,8 +28,21 @@ List* Create_List()
         list[ndx].head = NULL;
         list[ndx].size = 0;
     }
-
     return list;
+}
+
+
+DataNode *RecebeDados()
+{
+    DataNode *Dados = malloc(sizeof(DataNode));
+
+    printf("\n Informe o preço R$: ");
+    scanf("%f", &Dados->valor);
+    printf("\n Informe quantas ações: ");
+    scanf("%d", &Dados->qntd);
+    Dados->valor_unidade = Dados->valor / Dados->qntd;
+
+return Dados;
 }
 
 
@@ -36,21 +52,99 @@ bool isEmpty (List* list, int opcao)
 }
 
 
-void push(List *list, DataNode data, int opcao)
+void pop(List* list, int opcao)
+{
+    if (!isEmpty(list, opcao))
+    {
+        Node* pointer = list[opcao].head;
+
+        list[opcao].head = pointer->next;
+        free(pointer);
+        list[opcao].size--;
+    }
+
+}
+
+
+int remover(List* dados, int opcao)
+{
+    float valor_m;
+    Node* cache = (Node*) malloc(sizeof(Node));
+    cache = dados->head;
+
+
+    if(dados[Compra].head == NULL)
+    {
+        return 0;
+    }
+    else if (dados[Venda].head == NULL)
+    {
+        return 0;
+    }
+
+    else if(cache[Compra].data.valor > cache[Venda].data.valor)
+    {
+        do
+        {
+            if(cache[Compra].data.qntd < cache[Venda].data.qntd)
+            {
+                valor_m = cache[Compra].data.valor_unidade  - ((cache[Compra].data.valor_unidade - cache[Venda].data.valor_unidade) / 2);
+                cache[Venda].data.qntd -= cache[Compra].data.qntd;
+                pop(dados, Compra);
+                cache[Compra].data = cache[Compra].next[Compra].data;
+
+                if(opcao == Compra)
+                {
+                    printf("\n\n Foram compradas %d ações, ao valor de R$%.2f", cache[Compra].data.qntd, (valor_m * cache[Compra].data.qntd));
+                }
+                else if(opcao == Venda)
+                {
+                    printf("\n\n Foram vendidas %d ações, ao valor de R$%.2f", cache[Compra].data.qntd, (valor_m * cache[Compra].data.qntd));
+                }
+            }
+
+            else if(cache[Compra].data.qntd > cache[Venda].data.qntd)
+            {
+                valor_m = cache[Compra].data.valor_unidade  - ((cache[Compra].data.valor_unidade - cache[Venda].data.valor_unidade) / 2);
+                cache[Compra].data.qntd -= cache[Venda].data.qntd;
+                pop(dados, Venda);
+                cache[Venda].data = cache[Venda].next[Venda].data;
+
+                if(opcao == Compra)
+                {
+                    printf("\n\n Foram compradas %d ações, ao valor de R$%.2f", cache[Compra].data.qntd, (valor_m * cache[Venda].data.qntd));
+                }
+                else if(opcao == Venda)
+                {
+                    printf("\n\n Foram vendidas %d ações, ao valor de R$%.2f", cache[Compra].data.qntd, (valor_m * cache[Venda].data.qntd));
+                }
+            }
+        }
+        while(cache[Compra].data.valor > cache[Venda].data.valor);
+        /*  1- SUBTRAIR A DIFERENÇA DE PREÇO E DIVIDIR POR 2
+            2- VERIFICAR A QUANTIDADE, QUEM TIVER MENOS RECEBE POP
+            3- VERIFICAR SE O PROXIMO É COMPATIVEL, CASO NÃO PERMANECER EM ESPERA.*/
+    }
+    system("pause");
+    return 1;
+}
+
+
+void push(List *list, DataNode *data, int opcao)
 {
     Node* node = (Node*) malloc(sizeof(Node));
 
-    node->data = data;
+    node->data = *data;
     node->next = list[opcao].head;
     list[opcao].head = node;
     list[opcao].size ++;
 }
 
 
-void insert (List* list, DataNode data, int opcao)
+void insert (List* list, DataNode* data, int opcao)
 {
     Node* node = (Node*) malloc(sizeof(Node));
-    node->data = data;
+    node->data = *data;
 
     int index = -2;
 
@@ -64,7 +158,18 @@ void insert (List* list, DataNode data, int opcao)
     {
         Node* nodeCurrent = atPos(list, index, opcao);
 
-        if (nodeCurrent != NULL)
+        /*if (nodeCurrent != NULL)
+        {*/
+        Node* nodePrevious = atPos(list, index -1, opcao);
+
+        Node* newNode = (Node*) malloc (sizeof (Node));
+        newNode->data = *data;
+
+        nodePrevious->next = newNode;
+        newNode->next = nodeCurrent;
+        list[opcao].size++;
+
+        /*else if (nodeCurrent == NULL)
         {
             Node* nodePrevious = atPos(list, index -1, opcao);
 
@@ -72,23 +177,12 @@ void insert (List* list, DataNode data, int opcao)
             newNode->data = data;
 
             nodePrevious->next = newNode;
+
             newNode->next = nodeCurrent;
             list[opcao].size++;
-        }
-        else if (nodeCurrent == NULL)
-        {
-            Node* nodePrevious = atPos(list, index -1, opcao);
-
-            Node* newNode = (Node*) malloc (sizeof (Node));
-            newNode->data = data;
-
-            nodePrevious->next = newNode;
-
-            newNode->next = nodeCurrent;
-        }
+        */
     }
     free(node);
-
 }
 
 /* OPCÃO 0 == COMPRA VALOR PAGO FOR MAIOR ASSUME A POSIÇÃO ...  OPÇÃO 1 == VENDA VALOR OFERTADO FOR MENOR RECEBE O INDICE */
@@ -96,19 +190,19 @@ int indexOf(List* list, Node* node, int opcao)
 {
     int index = 0;
 
-    if(opcao == 0)
+    if(opcao == Compra)
     {
-        if (list[opcao].head == NULL)
+        if (list[Compra].head == NULL)
         {
             return 0;
         }
         else if (node != NULL)
         {
-            Node* pointer = list[opcao].head;
+            Node* pointer = list[Compra].head;
 
             while (pointer != NULL)
             {
-                if(node->data.valor > pointer->data.valor)
+                if(node->data.valor_unidade > pointer->data.valor_unidade)
                 {
                     break;
                 }
@@ -119,19 +213,19 @@ int indexOf(List* list, Node* node, int opcao)
         }
     }
 
-    else if(opcao == 1)
+    else if(opcao == Venda)
     {
-        if (list[opcao].head == NULL)
+        if (list[Venda].head == NULL)
         {
             return 0;
         }
         else if (node != NULL)
         {
-            Node* pointer = list[opcao].head;
+            Node* pointer = list[Venda].head;
 
             while (pointer != NULL)
             {
-                if(node->data.valor < pointer->data.valor)
+                if(node->data.valor_unidade < pointer->data.valor_unidade)
                 {
                     break;
                 }
@@ -165,14 +259,18 @@ Node* atPos(List* list, int index, int opcao)
 
 
 
-void imprimir(List *list, int opcao)
+void imprimir(List *list)
 {
-    if(isEmpty(list, opcao))
-    {
-        printf("\nLISTA VAZIA");
-    }
+    printf("\n|-----------------------------------------------------------------------|");
+    printf("\n                AÇÕES DISPONIVEIS PARA COMPRAR. ");
+    printf("\n|-----------------------------------------------------------------------|");
 
-    Node* pointer = list[opcao].head;
+    if(isEmpty(list, Compra))
+    {
+        printf("\n\nLISTA VAZIA");
+    }
+    printf("\n\n\n");
+    Node* pointer = list[Compra].head;
 
     while (pointer != NULL)
     {
@@ -181,8 +279,27 @@ void imprimir(List *list, int opcao)
         printf("\n quebra ;)");
         pointer = pointer->next;
     }
-
     free(pointer);
-    printf("\n");
-}
+printf("\n|-----------------------------------------------------------------------|");
+printf("\n                 AÇÕES DISPONIVEIS PARA VENDER. ");
+printf("\n|-----------------------------------------------------------------------|");
 
+    if(isEmpty(list, Venda))
+    {
+        printf("\n\nLISTA VAZIA");
+    }
+    printf("\n\n\n");
+    Node* _pointer = list[Venda].head;
+
+    while (_pointer != NULL)
+    {
+        printf("\n%.2f  ", _pointer->data.valor);
+        printf("%d  ", _pointer->data.qntd);
+        printf("\n quebra ;)");
+        _pointer = _pointer->next;
+    }
+
+    free(_pointer);
+    printf("\n\n\n\n");
+    system("pause");
+}

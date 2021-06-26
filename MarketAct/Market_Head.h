@@ -1,12 +1,17 @@
 #ifndef MARKET_HEAD_H_INCLUDED
 #define MARKET_HEAD_H_INCLUDED
 
+#define Compra 0
+#define Venda 1
+
 
 typedef struct datanode
 {
     int qntd;
     float valor;
+    float valor_unidade;
 } DataNode;
+DataNode Data;
 
 typedef struct node
 {
@@ -22,16 +27,23 @@ typedef struct list
 
 List *PETR4, *VALE5, *LAME3;
 
-
+void inicializar();
 List* Create_List();
-void push(List *list, DataNode data, int opcao);
-void imprimir (List* list, int opcao);
+void push(List *list, DataNode* data, int opcao);
+void imprimir (List* list);
 bool isEmpty (List* list, int opcao);
-void pop(List *list);
+void pop(List *list, int opcao);
 Node* atPos(List* list, int index, int opcao);
 int indexOf(List* list, Node* node, int opcao);
 void erase(List* list, int index);
-void insert (List* list, DataNode data, int opcao);
+void insert (List* list, DataNode* data, int opcao);
+int remover(List* dados, int opcao);
 
+DataNode *RecebeDados();
+
+void menuGeral();
+void menuVendas();
+void menuCompras();
+void menuListar();
 
 #endif // MARKET_HEAD_H_INCLUDED
