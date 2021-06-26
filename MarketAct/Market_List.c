@@ -218,94 +218,50 @@ int remover(List* list)
         return 0;
     }
 
-/*    if(opcao == Venda)
-    {*/
-        if(buy->data.valor_unidade >= sell->data.valor_unidade)
-        {
-
-            while(buy != NULL && sell != NULL)
-            {
-                if(buy->data.valor_unidade < sell->data.valor_unidade)
-                {
-                    printf("\n TO AQ 0");
-                    break;
-                }
-
-                if(buy->data.qntd < sell->data.qntd)
-                {
-                    printf("\n TO AQ 1");
-                    sell->data.qntd -= buy->data.qntd;
-                    sell->data.valor = sell->data.qntd * sell->data.valor_unidade;
-                    buy = buy->next;
-                    pop(list, Compra);
-                }
-
-                else if(buy->data.qntd > sell->data.qntd)
-                {
-                    printf("\n TO AQ 2");
-                    buy->data.qntd -= sell->data.qntd;
-                    buy->data.valor = buy->data.qntd * buy->data.valor_unidade;
-                    sell = sell->next;
-                    pop(list, Venda);
-                }
-
-                else if(buy->data.qntd == sell->data.qntd)
-                {
-                    buy = buy->next;
-                    sell = sell->next;
-                    pop(list, Compra);
-                    pop(list, Venda);
-
-                }
-            }
-
-            return 1;
-        }
-/*    }
-
-    else if(opcao == Compra)
+    if(buy->data.valor_unidade >= sell->data.valor_unidade)
     {
-        if(sell->data.valor_unidade <= buy->data.valor_unidade)
+
+        while(buy != NULL && sell != NULL)
         {
-
-            while(buy != NULL && sell != NULL)
+            if(buy->data.valor_unidade < sell->data.valor_unidade)
             {
-                if(sell->data.valor_unidade > buy->data.valor_unidade)
-                {
-                    break;
-                }
-
-                if(sell->data.qntd < buy->data.qntd)
-                {
-                    printf("\nto aq 0\n");
-                    buy->data.qntd -= sell->data.qntd;
-                    pop(list, Venda);
-                    break;
-                }
-
-                else if(sell->data.qntd > buy->data.qntd)
-                {
-                    printf("\nto aq 1\n");
-                    sell->data.qntd -= buy->data.qntd;
-                    pop(list, Compra);
-                    break;
-                }
-
-                else if(sell->data.qntd == buy->data.qntd)
-                {
-                    printf("\nto aq 2\n");
-                    pop(list, Compra);
-                    pop(list, Venda);
-                    break;
-                }
+                printf("\n TO AQ 0");
+                break;
             }
 
-            return 1;
-        }
-    }*/
+            if(buy->data.qntd < sell->data.qntd)
+            {
+                printf("\n TO AQ 1");
+                sell->data.qntd -= buy->data.qntd;
+                sell->data.valor = sell->data.qntd * sell->data.valor_unidade;
+                buy = buy->next;
+                pop(list, Compra);
+            }
 
+            else if(buy->data.qntd > sell->data.qntd)
+            {
+                printf("\n TO AQ 2");
+                buy->data.qntd -= sell->data.qntd;
+                buy->data.valor = buy->data.qntd * buy->data.valor_unidade;
+                sell = sell->next;
+                pop(list, Venda);
+            }
+
+            else if(buy->data.qntd == sell->data.qntd)
+            {
+                buy = buy->next;
+                sell = sell->next;
+                pop(list, Compra);
+                pop(list, Venda);
+
+            }
+        }
+
+        return 1;
+    }
     return 0;
 }
+
 
 /* OPCÃO 0 == COMPRA VALOR PAGO FOR MAIOR ASSUME A POSIÇÃO ...  OPÇÃO 1 == VENDA VALOR OFERTADO FOR MENOR RECEBE O INDICE */
 int indexOf(List* list, Node* node, int opcao)
@@ -396,16 +352,16 @@ void imprimir(List *list)
 
     for(pointer = list[Compra].head; pointer != NULL; pointer = pointer->next)
     {
-        printf("\nR$%.2f  ", pointer->data.valor);
-        printf("\n%d Ações ", pointer->data.qntd);
+        printf("\n R$%.2f  ", pointer->data.valor);
+        printf("\n %d Ações ", pointer->data.qntd);
         printf("\n R$%.5f  unidade ", pointer->data.valor_unidade);
         printf("\n ");
 
     }
     free(pointer);
-printf("\n|-----------------------------------------------------------------------|");
-printf("\n|                AÇÕES DISPONIVEIS PARA VENDER.                         |");
-printf("\n|-----------------------------------------------------------------------|");
+    printf("\n|-----------------------------------------------------------------------|");
+    printf("\n|                AÇÕES DISPONIVEIS PARA VENDER.                         |");
+    printf("\n|-----------------------------------------------------------------------|");
 
     if(isEmpty(list, Venda))
     {
@@ -416,8 +372,8 @@ printf("\n|---------------------------------------------------------------------
 
     for(_pointer = list[Venda].head; _pointer != NULL; _pointer = _pointer->next)
     {
-        printf("\nR$%.2f  ", _pointer->data.valor);
-        printf("\n%d Ações ", _pointer->data.qntd);
+        printf("\n R$%.2f  ", _pointer->data.valor);
+        printf("\n %d Ações ", _pointer->data.qntd);
         printf("\n R$%.5f  unidade ", _pointer->data.valor_unidade);
         printf("\n ");
     }
