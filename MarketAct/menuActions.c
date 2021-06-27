@@ -51,13 +51,12 @@ void menuCompras()
     setbuf(stdin, NULL);
     system("cls");
     printf("\n### Compra de Ações ###\n");
-    printf("\n Selecione: \n(1)- LAME3 \n(2)- PETR4 \n(3)- VALE5  \n(9)- VOLTAR  \n(0)- SAIR  ");
+    printf("\n Selecione: \n\n(1)- LAME3 \n(2)- PETR4 \n(3)- ITSA4 \n(4)- VALE5 \n(5)- USIM5 \n(9)- p/ VOLTAR \n(0)- p/ SAIR ");
     escolha = getch();
 
     if(escolha == '1')
     {
         data = RecebeDados();
-
         if(data == NULL)
         {
             getch();
@@ -67,7 +66,6 @@ void menuCompras()
             insert(LAME3, data, Compra);
 
         remover(LAME3);
-        /*OK_Compra = remover(LAME3, Compra);*/
     }
 
     else if(escolha == '2')
@@ -82,7 +80,8 @@ void menuCompras()
         else
             insert(PETR4, data, Compra);
 
-        /*OK_Compra = remover(PETR4, Compra);*/
+        remover(PETR4);
+        /*OK_Venda = remover(PETR4, Venda);*/
     }
     else if(escolha == '3')
     {
@@ -94,9 +93,40 @@ void menuCompras()
             menuVendas();
         }
         else
+            insert(ITSA4, data, Compra);
+
+        remover(ITSA4);
+        /*OK_Venda = remover(VALE5, Venda);*/
+    }
+    else if(escolha == '4')
+    {
+        data = RecebeDados();
+
+        if(data == NULL)
+        {
+            getch();
+            menuVendas();
+        }
+        else
             insert(VALE5, data, Compra);
 
-        /*OK_Compra = remover(VALE5, Compra);*/
+        remover(VALE5);
+        /*OK_Venda = remover(VALE5, Venda);*/
+    }
+    else if(escolha == '5')
+    {
+        data = RecebeDados();
+
+        if(data == NULL)
+        {
+            getch();
+            menuVendas();
+        }
+        else
+            insert(USIM5, data, Compra);
+
+        remover(USIM5);
+        /*OK_Venda = remover(VALE5, Venda);*/
     }
     else if(escolha == '9')
     {
@@ -116,7 +146,7 @@ void menuCompras()
     }
     else
         printf("\n\n Aguardando ações à venda. ");
-*/
+    */
     system("pause");
 
     menuCompras();
@@ -125,12 +155,12 @@ void menuCompras()
 
 void menuVendas()
 {
-int escolha, OK_Venda;
+    int escolha, OK_Venda;
     DataNode *data;
     setbuf(stdin, NULL);
     system("cls");
     printf("\n### Venda de Ações ###\n");
-    printf("\n Selecione: \n(1)- LAME3 \n(2)- PETR4 \n(3)- VALE5 \n(9) p/ VOLTAR \n(0) p/ SAIR ");
+    printf("\n Selecione: \n\n(1)- LAME3 \n(2)- PETR4 \n(3)- ITSA4 \n(4)- VALE5 \n(5)- USIM5 \n(9)- p/ VOLTAR \n(0)- p/ SAIR ");
     escolha = getch();
 
     if(escolha == '1')
@@ -159,6 +189,7 @@ int escolha, OK_Venda;
         else
             insert(PETR4, data, Venda);
 
+        remover(PETR4);
         /*OK_Venda = remover(PETR4, Venda);*/
     }
     else if(escolha == '3')
@@ -171,8 +202,39 @@ int escolha, OK_Venda;
             menuVendas();
         }
         else
+            insert(ITSA4, data, Venda);
+
+        remover(ITSA4);
+        /*OK_Venda = remover(VALE5, Venda);*/
+    }
+    else if(escolha == '4')
+    {
+        data = RecebeDados();
+
+        if(data == NULL)
+        {
+            getch();
+            menuVendas();
+        }
+        else
             insert(VALE5, data, Venda);
 
+        remover(VALE5);
+        /*OK_Venda = remover(VALE5, Venda);*/
+    }
+    else if(escolha == '5')
+    {
+        data = RecebeDados();
+
+        if(data == NULL)
+        {
+            getch();
+            menuVendas();
+        }
+        else
+            insert(USIM5, data, Venda);
+
+        remover(USIM5);
         /*OK_Venda = remover(VALE5, Venda);*/
     }
     else if(escolha == '9')
@@ -205,7 +267,7 @@ void menuListar()
 
     system("cls");
 
-    printf("\n\n Para visualizar selecione: \n(1)- LAME3 \n(2)- PETR4  \n(3)- VALE5 \n(9)- VOLTAR  \n(0)- SAIR ");
+    printf("\n\n Para visualizar selecione: \n(1)- LAME3 \n(2)- PETR4  \n(3)- ITSA4 \n(4)- VALE5 \n(5)- USIM5 \n(9)- p/ VOLTAR  \n(0)- p/ SAIR ");
     escolha = getch();
 
     if(escolha == '1')
@@ -218,7 +280,15 @@ void menuListar()
     }
     else if(escolha == '3')
     {
+        imprimir(ITSA4);
+    }
+    else if(escolha == '4')
+    {
         imprimir(VALE5);
+    }
+     else if(escolha == '5')
+    {
+        imprimir(USIM5);
     }
     else if(escolha == '9')
     {
@@ -230,6 +300,5 @@ void menuListar()
         exit(1);
     }
 
-    system("pause");
     menuListar();
 }

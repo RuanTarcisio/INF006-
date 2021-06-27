@@ -16,6 +16,8 @@ void inicializar()
     PETR4 = Create_List();
     LAME3 = Create_List();
     VALE5 = Create_List();
+    USIM5 = Create_List();
+    ITSA4 = Create_List();
 }
 
 List* Create_List()
@@ -104,7 +106,7 @@ DataNode *RecebeDados()
     }
 
 
-    printf("\n Valor unidade R$%.2f \n", Dados->valor_unidade);
+    printf("\n Valor unidade R$%.2f \n\n", Dados->valor_unidade);
     getch();
 
     return Dados;
@@ -223,6 +225,8 @@ int remover(List* list)
 
         while(buy != NULL && sell != NULL)
         {
+         valor_m = buy->data.valor_unidade - (buy->data.valor_unidade - sell->data.valor_unidade)/2;
+
             if(buy->data.valor_unidade < sell->data.valor_unidade)
             {
                 printf("\n TO AQ 0");
@@ -231,7 +235,7 @@ int remover(List* list)
 
             if(buy->data.qntd < sell->data.qntd)
             {
-                printf("\n TO AQ 1");
+                printf("\n Foi negociado %d ações ao valor de R$ %.2f\n", buy->data.qntd, valor_m * buy->data.qntd);
                 sell->data.qntd -= buy->data.qntd;
                 sell->data.valor = sell->data.qntd * sell->data.valor_unidade;
                 buy = buy->next;
@@ -240,7 +244,7 @@ int remover(List* list)
 
             else if(buy->data.qntd > sell->data.qntd)
             {
-                printf("\n TO AQ 2");
+                printf("\n Foi negociado %d ações ao valor de R$ %.2f\n", sell->data.qntd, valor_m * sell->data.qntd);
                 buy->data.qntd -= sell->data.qntd;
                 buy->data.valor = buy->data.qntd * buy->data.valor_unidade;
                 sell = sell->next;
@@ -249,6 +253,7 @@ int remover(List* list)
 
             else if(buy->data.qntd == sell->data.qntd)
             {
+                printf("\n Foi negociado %d ações ao valor de R$ %2f\n", buy->data.qntd, valor_m * buy->data.qntd);
                 buy = buy->next;
                 sell = sell->next;
                 pop(list, Compra);
@@ -256,9 +261,10 @@ int remover(List* list)
 
             }
         }
-
+        printf("\n");
         return 1;
     }
+    printf("\n");
     return 0;
 }
 
@@ -339,8 +345,9 @@ Node* atPos(List* list, int index, int opcao)
 
 void imprimir(List *list)
 {
+    system("cls");
     printf("\n|-----------------------------------------------------------------------|");
-    printf("\n|                AÇÕES DISPONIVEIS PARA COMPRAR.                        |");
+    printf("\n|                  AÇÕES DISPONIVEIS PARA COMPRAR.                      |");
     printf("\n|-----------------------------------------------------------------------|");
 
     if(isEmpty(list, Compra))
@@ -360,7 +367,7 @@ void imprimir(List *list)
     }
     free(pointer);
     printf("\n|-----------------------------------------------------------------------|");
-    printf("\n|                AÇÕES DISPONIVEIS PARA VENDER.                         |");
+    printf("\n|                   AÇÕES DISPONIVEIS PARA VENDER.                      |");
     printf("\n|-----------------------------------------------------------------------|");
 
     if(isEmpty(list, Venda))
@@ -379,6 +386,6 @@ void imprimir(List *list)
     }
 
     free(_pointer);
-    printf("\n\n\n\n");
+    printf("\n\n\n");
     system("pause");
 }

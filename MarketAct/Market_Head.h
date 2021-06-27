@@ -24,7 +24,7 @@ typedef struct list
     Node *head;
 } List;
 
-List *PETR4, *VALE5, *LAME3;
+List *PETR4, *VALE5, *LAME3, *USIM5, *ITSA4;
 
 void inicializar();
 List* Create_List();
