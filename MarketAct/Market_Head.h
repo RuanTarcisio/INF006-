@@ -5,6 +5,13 @@
 #define Venda 1
 
 
+enum Titulos
+{
+LAME3_ = 1, PETR4_	,ITSA4_, VALE5_, USIM5_
+};
+
+
+
 typedef struct datanode
 {
     int qntd;
@@ -25,6 +32,9 @@ typedef struct list
 } List;
 
 List *PETR4, *VALE5, *LAME3, *USIM5, *ITSA4;
+FILE *_PETR4, *_VALE5, *_LAME3, *_USIM5, *_ITSA4;
+
+void ArqSalvar(List *list, int tittle, int opcao);
 
 void inicializar();
 List* Create_List();

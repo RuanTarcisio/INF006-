@@ -66,8 +66,9 @@ void menuCompras()
             insert(LAME3, data, Compra);
 
         remover(LAME3);
-    }
 
+        ArqSalvar(LAME3, LAME3_, Compra); imprimir(LAME3);
+    }
     else if(escolha == '2')
     {
         data = RecebeDados();
@@ -81,7 +82,8 @@ void menuCompras()
             insert(PETR4, data, Compra);
 
         remover(PETR4);
-        /*OK_Venda = remover(PETR4, Venda);*/
+
+        ArqSalvar(PETR4, PETR4_, Compra);
     }
     else if(escolha == '3')
     {
@@ -96,7 +98,8 @@ void menuCompras()
             insert(ITSA4, data, Compra);
 
         remover(ITSA4);
-        /*OK_Venda = remover(VALE5, Venda);*/
+
+        ArqSalvar(ITSA4, ITSA4_, Compra);
     }
     else if(escolha == '4')
     {
@@ -111,7 +114,8 @@ void menuCompras()
             insert(VALE5, data, Compra);
 
         remover(VALE5);
-        /*OK_Venda = remover(VALE5, Venda);*/
+
+        ArqSalvar(VALE5, VALE5_, Compra);
     }
     else if(escolha == '5')
     {
@@ -126,7 +130,8 @@ void menuCompras()
             insert(USIM5, data, Compra);
 
         remover(USIM5);
-        /*OK_Venda = remover(VALE5, Venda);*/
+
+        ArqSalvar(USIM5, USIM5_, Compra);
     }
     else if(escolha == '9')
     {
@@ -155,7 +160,7 @@ void menuCompras()
 
 void menuVendas()
 {
-    int escolha, OK_Venda;
+    int escolha;
     DataNode *data;
     setbuf(stdin, NULL);
     system("cls");
@@ -175,6 +180,8 @@ void menuVendas()
             insert(LAME3, data, Venda);
 
         remover(LAME3);
+
+        ArqSalvar(LAME3, LAME3_, Venda);
     }
 
     else if(escolha == '2')
@@ -190,7 +197,8 @@ void menuVendas()
             insert(PETR4, data, Venda);
 
         remover(PETR4);
-        /*OK_Venda = remover(PETR4, Venda);*/
+
+        ArqSalvar(PETR4, PETR4_, Venda);
     }
     else if(escolha == '3')
     {
@@ -205,7 +213,8 @@ void menuVendas()
             insert(ITSA4, data, Venda);
 
         remover(ITSA4);
-        /*OK_Venda = remover(VALE5, Venda);*/
+
+        ArqSalvar(ITSA4, ITSA4_, Venda);
     }
     else if(escolha == '4')
     {
@@ -220,7 +229,8 @@ void menuVendas()
             insert(VALE5, data, Venda);
 
         remover(VALE5);
-        /*OK_Venda = remover(VALE5, Venda);*/
+
+        ArqSalvar(VALE5,VALE5_, Venda);
     }
     else if(escolha == '5')
     {
@@ -235,7 +245,8 @@ void menuVendas()
             insert(USIM5, data, Venda);
 
         remover(USIM5);
-        /*OK_Venda = remover(VALE5, Venda);*/
+
+        ArqSalvar(USIM5, USIM5_, Venda);
     }
     else if(escolha == '9')
     {
@@ -286,7 +297,7 @@ void menuListar()
     {
         imprimir(VALE5);
     }
-     else if(escolha == '5')
+    else if(escolha == '5')
     {
         imprimir(USIM5);
     }
@@ -301,4 +312,144 @@ void menuListar()
     }
 
     menuListar();
+}
+
+
+void ArqSalvar(List *list, int tittle, int opcao)
+{
+    Node* cache;
+    FILE *Comprar, *Vender;
+
+    if (tittle == LAME3_)
+    {
+        Comprar = fopen("LAME3_Compra.txt", "w");
+        if(Comprar != NULL){
+        printf("\n OK 0 \n");}
+
+        fprintf(Comprar, "    AÇÕES PARA COMPRAR < LAME3 >  \n");
+        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Comprar);
+
+        Vender = fopen("LAME3_Venda.txt", "w");
+        if(Vender != NULL){
+        printf("\n OK 0 \n");
+        }
+
+        fprintf(Vender, "    AÇÕES PARA VENDER < LAME3 >  \n");
+        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Vender, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Vender, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Vender, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Vender);
+    }
+
+    else if (tittle == PETR4_)
+    {
+        Comprar = fopen("PETR4_Compra.txt", "w");
+        if(Comprar != NULL){
+        printf("\n OK 0 \n");}
+
+        fprintf(Comprar, "    AÇÕES PARA COMPRAR < PETR4 >  \n");
+        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Comprar);
+
+        Vender = fopen("PETR4_Venda.txt", "w");
+        if(Vender != NULL){
+        printf("\n OK 0 \n");}
+
+        fprintf(Vender, "    AÇÕES PARA VENDER < PETR4 >  \n");
+        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        {
+            fwrite(&cache->data, sizeof(Node*), 1, Vender);
+        }
+        fclose(Vender);
+    }
+
+    else if (tittle == ITSA4_)
+    {
+        Comprar = fopen("ITSA4_Compra.txt", "w");
+        if(Comprar != NULL){
+        printf("\n OK 0 \n");}
+
+        fprintf(Comprar, "    AÇÕES PARA COMPRAR < ITSA4 >  \n");
+        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Comprar);
+
+        Vender = fopen("ITSA4_Venda.txt", "w");
+        if(Vender != NULL){
+        printf("\n OK 0 \n");}
+
+        fprintf(Vender, "    AÇÕES PARA VENDER < ITSA4 >  \n");
+        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        {
+            fwrite(&cache->data, sizeof(Node*), 1, Vender);
+        }
+        fclose(Vender);
+    }
+
+    else if (tittle == VALE5_)
+    {
+        Comprar = fopen("VALE5_Compra.txt", "w");
+
+        fprintf(Comprar, "    AÇÕES PARA COMPRAR < VALE5 >  \n");
+        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Comprar);
+
+        Vender = fopen("VALE5_Venda.txt", "w");
+
+        fprintf(Vender, "    AÇÕES PARA VENDER < VALE5 >  \n");
+        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        {
+            fwrite(&cache->data, sizeof(Node*), 1, Vender);
+        }
+        fclose(Vender);
+    }
+
+    else if (tittle == USIM5_)
+    {
+
+        Comprar = fopen("USIM5_Compra.txt", "w");
+
+        fprintf(Comprar, "    AÇÕES PARA COMPRAR < USIM5 >  \n");
+        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Comprar);
+
+        Vender = fopen("USIM5_Venda.txt", "w");
+
+        fprintf(Vender, "    AÇÕES PARA COMPRAR < USIM5 >  \n");
+        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        {
+            fprintf(Vender, "\n\n Quantidade: %d ", cache->data.qntd);
+            fprintf(Vender, "\n Preço: %.2f ", cache->data.valor);
+            fprintf(Vender, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+        }
+        fclose(Vender);
+    }
 }
