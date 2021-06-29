@@ -15,7 +15,7 @@ void menuGeral()
     setbuf(stdin, NULL);
     system("cls");
     printf("\n\n       *********************** IFBA INVESTIMENTOS ***********************\n\n");
-    printf("\n Digite: \n(1)- COMPRAR \n(2)- VENDER  \n(3)- OFERTAS ATUAIS \n(0)- SAIR:  ");
+    printf("\n Digite: \n\n(1)- COMPRAR \n(2)- VENDER  \n(3)- OFERTAS ATUAIS \n(0)- SAIR:  ");
     printf("\n\n   ");
     escolha = getch();
     setbuf(stdin, NULL);
@@ -279,9 +279,9 @@ void menuListar()
 
     system("cls");
 
-    printf("\n\n Para visualizar selecione: \n(1)- LAME3 \n(2)- PETR4  \n(3)- ITSA4 \n(4)- VALE5 \n(5)- USIM5 \n(9)- p/ VOLTAR  \n(0)- p/ SAIR ");
+    printf("\n\n Para visualizar selecione: \n\n(1)- LAME3 \n(2)- PETR4  \n(3)- ITSA4 \n(4)- VALE5 \n(5)- USIM5 \n(9)- p/ VOLTAR  \n(0)- p/ SAIR ");
     escolha = getche();
-    getch();
+
 
     if(escolha == '1')
     {
