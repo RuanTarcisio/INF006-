@@ -59,14 +59,14 @@ void validarLista_arq(List *list)
     }
     else
         {
-            for(sell = list[Compra].head; sell != NULL && sell->data.qntd != 0; sell = sell->next)
+            for(sell = list[Venda].head; sell != NULL && sell->data.qntd != 0; sell = sell->next)
             {
                 anterior = sell;
             }
             if(sell->data.qntd == 0)
             {
                 anterior->next = sell->next;
-                list[Compra].size--;
+                list[Venda].size--;
             }
         free(sell);
         }

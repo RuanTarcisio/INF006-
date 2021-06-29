@@ -543,19 +543,12 @@ List *ler_Arq(int tittle)
             insert(lista, &cache, Venda);
         }
     }
-
     fclose(Vender);
+
     /*}
     else if(titulo == USIM5_)
     {
         FILE *arqC = fopen("USIM5_Compra.txt", "r");
-        if(!arqC)
-        {
-            printf("\n ERROR FILE  \n");
-            getch();
-            exit(0);
-        }
-
         while (!feof(arqC))
         {
 
@@ -568,13 +561,6 @@ List *ler_Arq(int tittle)
         fclose(arqC);
 
         FILE *arqV = fopen("USIM5_Venda.txt", "r");
-        if(!arqV)
-        {
-            printf("\n ERROR FILE  \n");
-            getch();
-            exit(0);
-        }
-
         while (!feof(arqV))
         {
 
