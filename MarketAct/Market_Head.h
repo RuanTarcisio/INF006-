@@ -7,7 +7,7 @@
 
 enum Titulos
 {
-LAME3_ = 1, PETR4_	,ITSA4_, VALE5_, USIM5_
+    LAME3_ = 1, PETR4_	,ITSA4_, VALE5_, USIM5_
 };
 
 

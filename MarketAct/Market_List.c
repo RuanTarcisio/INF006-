@@ -281,7 +281,6 @@ int remover(List* list)
 
             if(buy->data.valor_unidade < sell->data.valor_unidade)
             {
-                printf("\n TO AQ 0");
                 break;
             }
 
