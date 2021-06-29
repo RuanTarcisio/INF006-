@@ -8,9 +8,6 @@
 #include "Market_Head.h"
 
 
-/* INSERT, CRIAR FUNÇÃO PARA VERIFICAR O SE O VALOR É MENOR EM CASO DE VENDA, NO CASO DE COMPRA VALOR PAGO > */
-
-
 void inicializar()
 {
     PETR4 = ler_Arq(PETR4_);
@@ -320,7 +317,6 @@ int remover(List* list)
 }
 
 
-/* OPCÃO 0 == COMPRA VALOR PAGO FOR MAIOR ASSUME A POSIÇÃO ...  OPÇÃO 1 == VENDA VALOR OFERTADO FOR MENOR RECEBE O INDICE */
 int indexOf(List* list, Node* node, int opcao)
 {
     int index = 0;

@@ -146,13 +146,6 @@ void menuCompras()
     else
         menuCompras();
 
-    /*if(OK_Compra == 1)
-    {
-        printf("\n\n Ações compradas com sucesso. ");
-    }
-    else
-        printf("\n\n Aguardando ações à venda. ");
-    */
     system("pause");
 
     menuCompras();
@@ -261,13 +254,6 @@ void menuVendas()
     else
         menuVendas();
 
-
-    /*if(OK_Venda == 1)
-    {
-        printf("\n\n Ações vendidas com sucesso. ");
-    }
-    else
-        printf("\n\n Aguardando compradores. ");*/
     system("pause");
     menuVendas();
 }
@@ -419,8 +405,6 @@ void ArqSalvar(List *list, int tittle, int opcao)
         fprintf(Vender, "%d  %f  %f    ", cache->data.qntd, cache->data.valor, cache->data.valor_unidade);
     }
     fclose(Vender);
-
-
 }
 
 
@@ -521,7 +505,6 @@ List *ler_Arq(int tittle)
     insert(lista, &cache, Compra);
     while (!feof(Comprar))
     {
-        /* fscanf(arq,"%s  %s", &texto, &data.nome);*/
         fscanf(Comprar, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
         if(cache.qntd != 0 && cache.valor != 0 && cache.valor_unidade != 0)
         {
@@ -536,7 +519,6 @@ List *ler_Arq(int tittle)
     insert(lista, &cache, Venda);
     while (!feof(Vender))
     {
-        /* fscanf(arq,"%s  %s", &texto, &data.nome);*/
         fscanf(Vender, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
         if(cache.qntd != 0 && cache.valor != 0 && cache.valor_unidade != 0)
         {
@@ -545,32 +527,5 @@ List *ler_Arq(int tittle)
     }
     fclose(Vender);
 
-    /*}
-    else if(titulo == USIM5_)
-    {
-        FILE *arqC = fopen("USIM5_Compra.txt", "r");
-        while (!feof(arqC))
-        {
-
-            fscanf(arqC, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
-            if(cache.qntd != 0)
-            {
-                insert(lista, &cache, Compra);
-            }
-        }
-        fclose(arqC);
-
-        FILE *arqV = fopen("USIM5_Venda.txt", "r");
-        while (!feof(arqV))
-        {
-
-            fscanf(arqV, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
-            if(cache.qntd != 0)
-            {
-                insert(lista, &cache, Venda);
-            }
-        }
-        fclose(arqV);
-    }*/
     return lista;
 }
