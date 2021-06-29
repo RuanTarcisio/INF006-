@@ -48,6 +48,7 @@ void menuCompras()
 {
     int escolha;
     DataNode *data;
+
     setbuf(stdin, NULL);
     system("cls");
     printf("\n### Compra de Ações ###\n");
@@ -60,14 +61,14 @@ void menuCompras()
         if(data == NULL)
         {
             getch();
-            menuVendas();
+            menuCompras();
         }
         else
             insert(LAME3, data, Compra);
 
         remover(LAME3);
 
-        ArqSalvar(LAME3, LAME3_, Compra); imprimir(LAME3);
+        ArqSalvar(LAME3, LAME3_, Compra);
     }
     else if(escolha == '2')
     {
@@ -76,7 +77,7 @@ void menuCompras()
         if(data == NULL)
         {
             getch();
-            menuVendas();
+            menuCompras();
         }
         else
             insert(PETR4, data, Compra);
@@ -92,7 +93,7 @@ void menuCompras()
         if(data == NULL)
         {
             getch();
-            menuVendas();
+            menuCompras();
         }
         else
             insert(ITSA4, data, Compra);
@@ -108,7 +109,7 @@ void menuCompras()
         if(data == NULL)
         {
             getch();
-            menuVendas();
+            menuCompras();
         }
         else
             insert(VALE5, data, Compra);
@@ -124,7 +125,7 @@ void menuCompras()
         if(data == NULL)
         {
             getch();
-            menuVendas();
+            menuCompras();
         }
         else
             insert(USIM5, data, Compra);
@@ -279,7 +280,8 @@ void menuListar()
     system("cls");
 
     printf("\n\n Para visualizar selecione: \n(1)- LAME3 \n(2)- PETR4  \n(3)- ITSA4 \n(4)- VALE5 \n(5)- USIM5 \n(9)- p/ VOLTAR  \n(0)- p/ SAIR ");
-    escolha = getch();
+    escolha = getche();
+    getch();
 
     if(escolha == '1')
     {
@@ -320,136 +322,269 @@ void ArqSalvar(List *list, int tittle, int opcao)
     Node* cache;
     FILE *Comprar, *Vender;
 
-    if (tittle == LAME3_)
+    if(tittle == LAME3_)
     {
-        Comprar = fopen("LAME3_Compra.txt", "w");
-        if(Comprar != NULL){
-        printf("\n OK 0 \n");}
-
-        fprintf(Comprar, "    AÇÕES PARA COMPRAR < LAME3 >  \n");
-        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        Comprar = fopen("LAME3_C.txt", "w");
+        if(!Comprar)
         {
-            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
         }
-        fclose(Comprar);
-
-        Vender = fopen("LAME3_Venda.txt", "w");
-        if(Vender != NULL){
-        printf("\n OK 0 \n");
-        }
-
-        fprintf(Vender, "    AÇÕES PARA VENDER < LAME3 >  \n");
-        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        Vender = fopen("LAME3_V.txt", "w");
+        if(!Vender)
         {
-            fprintf(Vender, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Vender, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Vender, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
         }
-        fclose(Vender);
+    }
+    else if(tittle == PETR4_)
+    {
+        Comprar = fopen("PETR4_C.txt", "w");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("PETR4_V.txt", "w");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    else if(tittle == ITSA4_)
+    {
+        Comprar = fopen("ITSA4_C.txt", "w");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("ITSA4_V.txt", "w");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    else if(tittle == VALE5_)
+    {
+        Comprar = fopen("VALE5_C.txt", "w");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("VALE5_V.txt", "w");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    else if(tittle == USIM5_)
+    {
+        Comprar = fopen("USIM5_C.txt", "w");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("USIM5_V.txt", "w");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
     }
 
-    else if (tittle == PETR4_)
+    for(cache = list[Compra].head; cache != NULL; cache = cache->next)
     {
-        Comprar = fopen("PETR4_Compra.txt", "w");
-        if(Comprar != NULL){
-        printf("\n OK 0 \n");}
+        fprintf(Comprar, "%d  %f  %f    ", cache->data.qntd, cache->data.valor, cache->data.valor_unidade);
+    }
+    fclose(Comprar);
 
-        fprintf(Comprar, "    AÇÕES PARA COMPRAR < PETR4 >  \n");
-        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+    for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+    {
+        fprintf(Vender, "%d  %f  %f    ", cache->data.qntd, cache->data.valor, cache->data.valor_unidade);
+    }
+    fclose(Vender);
+
+
+}
+
+
+List *ler_Arq(int tittle)
+{
+    DataNode cache;
+    List *lista = Create_List();
+    FILE *Comprar, *Vender;
+
+    if(tittle == LAME3_)
+    {
+        Comprar = fopen("LAME3_C.txt", "r");
+        if(!Comprar)
         {
-            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
         }
-        fclose(Comprar);
-
-        Vender = fopen("PETR4_Venda.txt", "w");
-        if(Vender != NULL){
-        printf("\n OK 0 \n");}
-
-        fprintf(Vender, "    AÇÕES PARA VENDER < PETR4 >  \n");
-        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        Vender = fopen("LAME3_V.txt", "r");
+        if(!Vender)
         {
-            fwrite(&cache->data, sizeof(Node*), 1, Vender);
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
         }
-        fclose(Vender);
+    }
+    else if(tittle == PETR4_)
+    {
+        Comprar = fopen("PETR4_C.txt", "r");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("PETR4_V.txt", "r");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    else if(tittle == ITSA4_)
+    {
+        Comprar = fopen("ITSA4_C.txt", "r");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("ITSA4_V.txt", "r");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    else if(tittle == VALE5_)
+    {
+        Comprar = fopen("VALE5_C.txt", "r");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("VALE5_V.txt", "r");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    else if(tittle == USIM5_)
+    {
+        Comprar = fopen("USIM5_C.txt", "r");
+        if(!Comprar)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+        Vender = fopen("USIM5_V.txt", "r");
+        if(!Vender)
+        {
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
+        }
+    }
+    cache.qntd = 0;
+    cache.valor = 0;
+    cache.valor_unidade = 0;
+    insert(lista, &cache, Compra);
+    while (!feof(Comprar))
+    {
+        /* fscanf(arq,"%s  %s", &texto, &data.nome);*/
+        fscanf(Comprar, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
+        if(cache.qntd != 0 && cache.valor != 0 && cache.valor_unidade != 0)
+        {
+            insert(lista, &cache, Compra);
+        }
+    }
+    fclose(Comprar);
+
+    cache.qntd = 0;
+    cache.valor = 0;
+    cache.valor_unidade = 0;
+    insert(lista, &cache, Venda);
+    while (!feof(Vender))
+    {
+        /* fscanf(arq,"%s  %s", &texto, &data.nome);*/
+        fscanf(Vender, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
+        if(cache.qntd != 0 && cache.valor != 0 && cache.valor_unidade != 0)
+        {
+            insert(lista, &cache, Venda);
+        }
     }
 
-    else if (tittle == ITSA4_)
+    fclose(Vender);
+    /*}
+    else if(titulo == USIM5_)
     {
-        Comprar = fopen("ITSA4_Compra.txt", "w");
-        if(Comprar != NULL){
-        printf("\n OK 0 \n");}
-
-        fprintf(Comprar, "    AÇÕES PARA COMPRAR < ITSA4 >  \n");
-        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        FILE *arqC = fopen("USIM5_Compra.txt", "r");
+        if(!arqC)
         {
-            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
         }
-        fclose(Comprar);
 
-        Vender = fopen("ITSA4_Venda.txt", "w");
-        if(Vender != NULL){
-        printf("\n OK 0 \n");}
-
-        fprintf(Vender, "    AÇÕES PARA VENDER < ITSA4 >  \n");
-        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        while (!feof(arqC))
         {
-            fwrite(&cache->data, sizeof(Node*), 1, Vender);
+
+            fscanf(arqC, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
+            if(cache.qntd != 0)
+            {
+                insert(lista, &cache, Compra);
+            }
         }
-        fclose(Vender);
-    }
+        fclose(arqC);
 
-    else if (tittle == VALE5_)
-    {
-        Comprar = fopen("VALE5_Compra.txt", "w");
-
-        fprintf(Comprar, "    AÇÕES PARA COMPRAR < VALE5 >  \n");
-        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
+        FILE *arqV = fopen("USIM5_Venda.txt", "r");
+        if(!arqV)
         {
-            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
+            printf("\n ERROR FILE  \n");
+            getch();
+            exit(0);
         }
-        fclose(Comprar);
 
-        Vender = fopen("VALE5_Venda.txt", "w");
-
-        fprintf(Vender, "    AÇÕES PARA VENDER < VALE5 >  \n");
-        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
+        while (!feof(arqV))
         {
-            fwrite(&cache->data, sizeof(Node*), 1, Vender);
+
+            fscanf(arqV, "%d  %f  %f  ", &cache.qntd, &cache.valor, &cache.valor_unidade);
+            if(cache.qntd != 0)
+            {
+                insert(lista, &cache, Venda);
+            }
         }
-        fclose(Vender);
-    }
-
-    else if (tittle == USIM5_)
-    {
-
-        Comprar = fopen("USIM5_Compra.txt", "w");
-
-        fprintf(Comprar, "    AÇÕES PARA COMPRAR < USIM5 >  \n");
-        for(cache = list[Compra].head; cache != NULL; cache = cache->next)
-        {
-            fprintf(Comprar, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Comprar, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Comprar, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
-        }
-        fclose(Comprar);
-
-        Vender = fopen("USIM5_Venda.txt", "w");
-
-        fprintf(Vender, "    AÇÕES PARA COMPRAR < USIM5 >  \n");
-        for(cache = list[Venda].head; cache != NULL; cache = cache->next)
-        {
-            fprintf(Vender, "\n\n Quantidade: %d ", cache->data.qntd);
-            fprintf(Vender, "\n Preço: %.2f ", cache->data.valor);
-            fprintf(Vender, "\n Preço unidade: %.5f \n", cache->data.valor_unidade);
-        }
-        fclose(Vender);
-    }
+        fclose(arqV);
+    }*/
+    return lista;
 }

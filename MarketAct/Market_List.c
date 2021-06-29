@@ -13,11 +13,63 @@
 
 void inicializar()
 {
-    PETR4 = Create_List();
-    LAME3 = Create_List();
-    VALE5 = Create_List();
-    USIM5 = Create_List();
-    ITSA4 = Create_List();
+    PETR4 = ler_Arq(PETR4_);
+    LAME3 = ler_Arq(LAME3_);
+    VALE5 = ler_Arq(VALE5_);
+    USIM5 = ler_Arq(USIM5_);
+    ITSA4 = ler_Arq(ITSA4_);
+
+    validarLista_arq(LAME3);
+    validarLista_arq(PETR4);
+    validarLista_arq(ITSA4);
+    validarLista_arq(VALE5);
+    validarLista_arq(USIM5);
+
+}
+
+
+void validarLista_arq(List *list)
+{
+    Node *buy, *sell, *anterior;
+
+    buy = list[Compra].head;
+    sell = list[Venda].head;
+
+    if(buy->data.qntd == 0)
+    {
+        pop(list, Compra);
+    }
+    else
+        {
+            for(buy = list[Compra].head; buy != NULL && buy->data.qntd != 0; buy = buy->next)
+            {
+                anterior = buy;
+            }
+            if(buy->data.qntd == 0)
+            {
+                anterior->next = buy->next;
+                list[Compra].size--;
+            }
+        free(buy);
+        }
+
+    if(sell->data.qntd == 0)
+    {
+        pop(list, Venda);
+    }
+    else
+        {
+            for(sell = list[Compra].head; sell != NULL && sell->data.qntd != 0; sell = sell->next)
+            {
+                anterior = sell;
+            }
+            if(sell->data.qntd == 0)
+            {
+                anterior->next = sell->next;
+                list[Compra].size--;
+            }
+        free(sell);
+        }
 }
 
 List* Create_List()

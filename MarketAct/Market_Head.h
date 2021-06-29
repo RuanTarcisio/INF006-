@@ -32,9 +32,12 @@ typedef struct list
 } List;
 
 List *PETR4, *VALE5, *LAME3, *USIM5, *ITSA4;
-FILE *_PETR4, *_VALE5, *_LAME3, *_USIM5, *_ITSA4;
+
+
 
 void ArqSalvar(List *list, int tittle, int opcao);
+List *ler_Arq(int titulo);
+void validarLista_arq(List *list);
 
 void inicializar();
 List* Create_List();
